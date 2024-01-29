@@ -16,7 +16,7 @@ class Movie {
     addMovie(title, genre, releaseDate) {
       const movie = new Movie(title, genre, releaseDate);
       this.movies.push(movie);
-      console.log(`${title} has been added to our movie collection.`);
+      console.log(`${title} has been added to our movie collection.` );
     }
   
     displayMovies() {
@@ -30,7 +30,7 @@ class Movie {
       const movie = this.movies[index];
       if (movie && movie.availability) {
         movie.availability = false;
-        console.log(`You have successfully rented ${movie.title}! Enjoy your movie night.`);
+        console.log(`You have successfully rented ${movie.title}! Enjoy your movie .`);
       } else {
         console.log('Invalid selection or the movie is not available for rent.');
       }
@@ -57,29 +57,42 @@ class Movie {
     });
   
     rl.question('Enter your choice (1-3): ', (choice) => {
-      switch (choice) {
+      selectchoice (choice); 
+      rl.close();
+
+    });
+  }
+  function selectchoice(choice){
+    switch (choice){
+  
         case '1':
           rentalStore.displayMovies();
           break;
         case '2':
           rentalStore.displayMovies();
-          rl.question('Enter the number of the movie you want to rent: ', (index) => {
-            rentalStore.rentMovie(parseInt(index) - 1);
-          });
+          rentMovie();
           break;
         case '3':
           console.log('Thank you for using our movie rental service. Goodbye!');
-          rl.close();
+          
           process.exit(0);
         default:
           console.log('Invalid choice. Please try again.');
-          break;
+           promptUser() ;
       }
   
-      rl.close();
-      promptUser(); // Repeat the prompt after completing the selected action
-    });
-  }
+    }
+    function rentMovie(index){
+      const rl=readline.createInterface({
+        input: process.stdin,
+        output:process.stdout
+      });
+      rl.question('Enter the number of the movie wou want to rent:',(index)=>{
+        rentalStore.rentMovie(parseInt(index)-1);
+        rl.close();
+        promptUser();//Repeat the prompt after completing the action
+      });
+    }
   
   promptUser();
   
